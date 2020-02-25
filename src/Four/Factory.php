@@ -14,6 +14,10 @@ use Psr\Http\Client\ClientInterface;
 use Endeavors\Fhir\Http\Api\Four\Facade\Clinical;
 use Psr\Http\Message\{RequestInterface, ResponseInterface};
 
+/**
+ * [final description]
+ * @var [type]
+ */
 final class Factory implements RequestFactoryInterface
 {
     private static $instance = null;

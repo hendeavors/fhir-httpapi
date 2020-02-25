@@ -47,7 +47,7 @@ class HttpClientTest extends TestCase
 
         $psr18Client = new GuzzlePsr18Client($client);
 
-        $clinical = new Clinical($psr18Client);
+        $clinical = (new Clinical($psr18Client))->usingDefaultFhirVersion();
 
         // Clinical Summary
         $response = $clinical->allergyTolerance(new Request('GET', 'http://fhirserver/allergytolerance', [

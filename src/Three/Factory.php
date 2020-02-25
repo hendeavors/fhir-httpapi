@@ -15,6 +15,13 @@ use Psr\Http\Client\ClientInterface;
 use LogicException;
 use Psr\Http\Message\{RequestInterface, ResponseInterface};
 
+/**
+ * [final description]
+ * @var [type]
+ * @todo FHIR uses UTF-8 for all request and response bodies.
+ * Since the HTTP specification (section 3.7.1) defines a default character encoding
+ * of ISO-8859-1, requests and responses SHALL explicitly set the character encoding to UTF-8
+ */
 final class Factory implements RequestFactoryInterface
 {
     private static $instance = null;

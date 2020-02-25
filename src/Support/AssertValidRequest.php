@@ -98,8 +98,6 @@ trait AssertValidRequest
     {
         $this->validatesAcceptHeader($request);
 
-        $this->validateStandardizedHttpMethod($request);
-
         $this->validatesContentTypeHeader($request);
 
         $this->validatesAuthorizationHeader($request);

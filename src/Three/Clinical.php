@@ -15,7 +15,7 @@ use InvalidArgumentException;
 class Clinical implements ClinicalContract, ClientInterface
 {
     use AssertValidRequest;
-    
+
     private $httpClient;
 
     public function __construct(ClientInterface $httpClient)
@@ -264,6 +264,8 @@ class Clinical implements ClinicalContract, ClientInterface
     public function sendRequest(RequestInterface $request): ResponseInterface
     {
         $this->validatesRequiredHeaders($request);
+
+        $this->validateStandardizedHttpMethod($request);
 
         $this->validateContainsPath($request->getUri());
 

@@ -8,15 +8,44 @@ use Endeavors\Fhir\Http\Api\Support\AssertValidRequest;
 use Psr\Http\Client\ClientInterface;
 use InvalidArgumentException;
 
+/**
+ * [Clinical description]
+ * @todo Prefer: return=minimal
+ * Prefer: return=representation
+ * Prefer: return=OperationOutcome
+ * Servers SHOULD honor this header(Prefer)
+ * In the absence of the header, servers may choose whether to return the full resource or
+ * not (but not the OperationOutcome; that should only be returned if explicitly requested).
+ * Note that this setting only applies to successful interactions. In case of failure,
+ * servers SHOULD always return a body that contains an OperationOutcome resource.
+ */
 class Clinical implements ClinicalContract, ClientInterface
 {
     use AssertValidRequest;
 
     private $httpClient;
 
-    public function __construct(ClientInterface $httpClient)
+    private $fhirVersion = '';
+
+    public function __construct(ClientInterface $httpClient, ?string $fhirVersion = '4.0')
     {
         $this->httpClient = $httpClient;
+
+        $this->fhirVersion = $fhirVersion ?? '4.0';
+
+        if (!\is_numeric($this->fhirVersion)) {
+            throw new InvalidArgumentException("FHIR Version must be numeric. Example 4.0. See https://www.hl7.org/fhir/r4/http.html#version-parameter");
+        }
+    }
+
+    public function withDefaultFhirVersion()
+    {
+        return new Clinical($this->httpClient, null);
+    }
+
+    public function usingDefaultFhirVersion()
+    {
+        return $this->withDefaultFhirVersion();
     }
 
     /**
@@ -334,12 +363,35 @@ class Clinical implements ClinicalContract, ClientInterface
      * @param RequestInterface $request
      * @return ResponseInterface
      * @throws \Psr\Http\Client\ClientExceptionInterface If an error happens while processing the request.
+     * @todo https://www.hl7.org/fhir/R4/http.html#version-parameter
      */
     public function sendRequest(RequestInterface $request): ResponseInterface
     {
         $this->validatesRequiredHeaders($request);
 
+        $this->validateStandardizedHttpMethod($request);
+
         $this->validateContainsPath($request->getUri());
+
+        if ((float)$this->fhirVersion >= 5) {
+            throw new InvalidArgumentException(
+                sprintf("The publication [%s] is not yet supported by this client.", $this->fhirVersion)
+            );
+        }
+
+        $fhirVersionHeaderValue = 'fhirVersion=' . $this->fhirVersion;
+
+        $acceptHeader = $request->getHeader('accept')[0];
+        // Accept: application/fhir+json; fhirVersion=4.0
+        // https://www.hl7.org/fhir/r4/http.html#version-parameter
+        if ('' === $acceptHeader) {
+            $acceptHeader = $fhirVersionHeaderValue;
+            $request = $request->withHeader('accept', $acceptHeader);
+        } elseif ('' !== $acceptHeader) {
+            $rtrimmed = rtrim($acceptHeader, '; ');
+            $acceptHeader = $rtrimmed .= '; ' . $fhirVersionHeaderValue;
+            $request = $request->withHeader('accept', $acceptHeader);
+        }
 
         return $this->httpClient->sendRequest($request);
     }
