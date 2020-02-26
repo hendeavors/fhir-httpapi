@@ -15,6 +15,6 @@ class Clinical
 
         $client = static::resolvePsr18HttpClient($method, $args);
 
-        return (new ClinicalRoot($client))->$method($request);
+        return (new ClinicalRoot($client, ...$args))->$method($request);
     }
 }

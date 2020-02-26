@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Endeavors\Fhir\Http\Api\Four;
 
 use Endeavors\Fhir\Http\Contracts\Clinical\Four\Clinical as ClinicalContract;

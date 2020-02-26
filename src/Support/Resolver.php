@@ -20,6 +20,9 @@ trait Resolver
             }
         }
 
+        // TODO: if the request is still null consider defaulting a request implementation
+        // Check for a standardized http method, next validate that a URI exists
+
         static::guard($request, "A Psr7 compatible request is required.");
 
         return $request;

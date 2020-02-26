@@ -17,7 +17,8 @@
     "suggest": {
         "ext-curl": "Required for CURL handler support",
         "php-http/curl-client": "A Psr18 http client",
-        "php-http/guzzle6-adapter": "A Psr18 adapter for guzzle6"
+        "php-http/guzzle6-adapter": "A Psr18 adapter for guzzle6",
+        "endeavors/fhir-laravel": "Makes life easier in the context of Laravel"
     },
     "autoload": {
         "psr-4": {
@@ -28,5 +29,13 @@
         "psr-4": {
             "Endeavors\\Fhir\\Http\\Api\\Tests\\": "tests/"
         }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
+        }
+    },
+    "config": {
+        "sort-packages": true
     }
 }

@@ -15,8 +15,9 @@ use Endeavors\Fhir\Http\Api\Four\Facade\Clinical;
 use Psr\Http\Message\{RequestInterface, ResponseInterface};
 
 /**
- * [final description]
- * @var [type]
+ * Factory implementation for the clinical rest kit
+ * This uses the default fhirVersion
+ * @var Factory
  */
 final class Factory implements RequestFactoryInterface
 {

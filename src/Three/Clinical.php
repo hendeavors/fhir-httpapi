@@ -46,7 +46,7 @@ class Clinical implements ClinicalContract, ClientInterface
     }
 
     /**
-     * [procedureRequest description]
+     * ProcedureRequest resource
      * @param  RequestInterface  $request [description]
      * @return ResponseInterface          [description]
      */
@@ -56,7 +56,7 @@ class Clinical implements ClinicalContract, ClientInterface
     }
 
     /**
-     * [riskAssessment description]
+     * RiskAssessment resource
      * @param  RequestInterface  $request [description]
      * @return ResponseInterface          [description]
      */
@@ -66,7 +66,7 @@ class Clinical implements ClinicalContract, ClientInterface
     }
 
     /**
-     * [requestGroup description]
+     * RequestGroup resource
      * @param  RequestInterface  $request [description]
      * @return ResponseInterface          [description]
      */
@@ -76,7 +76,7 @@ class Clinical implements ClinicalContract, ClientInterface
     }
 
     /**
-     * [carePlan description]
+     * CarePlan resource
      * @param  RequestInterface  $request [description]
      * @return ResponseInterface          [description]
      */
@@ -86,7 +86,7 @@ class Clinical implements ClinicalContract, ClientInterface
     }
 
     /**
-     * [goal description]
+     * Goal resource
      * @param  RequestInterface  $request [description]
      * @return ResponseInterface          [description]
      */
@@ -96,7 +96,7 @@ class Clinical implements ClinicalContract, ClientInterface
     }
 
     /**
-     * [nutritionOrder description]
+     * NutritionOrder resource
      * @param  RequestInterface  $request [description]
      * @return ResponseInterface          [description]
      */
@@ -106,7 +106,7 @@ class Clinical implements ClinicalContract, ClientInterface
     }
 
     /**
-     * [visionPrescription description]
+     * VisionPrescription resource
      * @param  RequestInterface  $request [description]
      * @return ResponseInterface          [description]
      */
@@ -116,7 +116,7 @@ class Clinical implements ClinicalContract, ClientInterface
     }
 
     /**
-     * [observation description]
+     * Observation resource
      * @param  RequestInterface  $request [description]
      * @return ResponseInterface          [description]
      */
@@ -126,7 +126,7 @@ class Clinical implements ClinicalContract, ClientInterface
     }
 
     /**
-     * [diagnosticReport description]
+     * DiagnosticReport resource
      * @param  RequestInterface  $request [description]
      * @return ResponseInterface          [description]
      */
@@ -136,7 +136,7 @@ class Clinical implements ClinicalContract, ClientInterface
     }
 
     /**
-     * [specimen description]
+     * Specimen resource
      * @param  RequestInterface  $request [description]
      * @return ResponseInterface          [description]
      */
@@ -146,7 +146,7 @@ class Clinical implements ClinicalContract, ClientInterface
     }
 
     /**
-     * [bodySite description]
+     * BodySite resource
      * @param  RequestInterface  $request [description]
      * @return ResponseInterface          [description]
      */
@@ -156,7 +156,7 @@ class Clinical implements ClinicalContract, ClientInterface
     }
 
     /**
-     * [imagingStudy description]
+     * ImagingStudy resource
      * @param  RequestInterface  $request [description]
      * @return ResponseInterface          [description]
      */
@@ -166,9 +166,9 @@ class Clinical implements ClinicalContract, ClientInterface
     }
 
     /**
-     * [imagingManifest description]
-     * @param  RequestInterface  $request [description]
-     * @return ResponseInterface          [description]
+     * ImagingManifest resource
+     * @param  RequestInterface  $request psr7 request
+     * @return ResponseInterface $response the psr7 imaging request response
      */
     public function imagingManifest(RequestInterface $request): ResponseInterface
     {
@@ -186,7 +186,7 @@ class Clinical implements ClinicalContract, ClientInterface
     }
 
     /**
-     * The adverse event resource
+     * The Adverse event resource
      * @param  RequestInterface $request psr7 request
      * @return ResponseInterface $response The psr7 adverse event response
      */
@@ -196,7 +196,7 @@ class Clinical implements ClinicalContract, ClientInterface
     }
 
     /**
-     * The allergy tolerance resource
+     * The Allergy tolerance resource
      * @param  RequestInterface $request psr7 request
      * @return ResponseInterface $response The psr7 allergy tolerance response
      */
