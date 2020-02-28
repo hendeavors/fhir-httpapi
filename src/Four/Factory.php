@@ -98,6 +98,10 @@ final class Factory implements RequestFactoryInterface
      */
     public static function createCondition($uri, $body, string $authorization): ResponseInterface
     {
+        if (\is_array($body)) {
+            $body = \json_encode($body);
+        }
+        
         $request = static::getInstance()
         ->postRequest(Write::make($uri))
         ->withBody(Stream::create($body))

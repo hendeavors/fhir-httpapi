@@ -227,6 +227,39 @@ class BearerTokenTest extends TestCase
                 ]
             )
         );
+    }
+
+    /**
+     * @test
+     */
+    public function nullBearerValue()
+    {
+        $mock = new MockHandler([
+            new Response(200, ['X-Foo' => 'Bar'], 'Bearer'),
+        ]);
+
+        $handlerStack = HandlerStack::create($mock);
+
+        $client = new Client(['handler' => $handlerStack]);
+
+        $psr18Client = new GuzzlePsr18Client($client);
+
+        $clinical = new FourClinical($psr18Client);
+
+        $this->expectException(\InvalidArgumentException::class);
+
+        // Generic request
+        $response = $clinical
+        ->sendRequest(
+            new Request(
+                'GET',
+                'http://invalidbearertoken/somepath',
+                [
+                    'Accept' => '',
+                    'Authorization' => 'Bearer ' . null
+                ]
+            )
+        );
 
         $this->assertSame('Bearer', (string)$response->getBody());
     }
