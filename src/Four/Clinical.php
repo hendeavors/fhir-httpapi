@@ -317,6 +317,10 @@ class Clinical implements ClinicalContract, ClientInterface
      */
     public function condition(RequestInterface $request): ResponseInterface
     {
+        if ($request->getMethod() === 'POST') {
+            // TODO subject is required
+        }
+
         return $this->sendRequest($request);
     }
 

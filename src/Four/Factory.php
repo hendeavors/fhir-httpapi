@@ -101,7 +101,9 @@ final class Factory implements RequestFactoryInterface
         if (\is_array($body)) {
             $body = \json_encode($body);
         }
-        
+
+        // TODO implements \JsonSerializable
+
         $request = static::getInstance()
         ->postRequest(Write::make($uri))
         ->withBody(Stream::create($body))
