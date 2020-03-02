@@ -381,7 +381,15 @@ class Clinical implements ClinicalContract, ClientInterface
 
         if ((float)$this->fhirVersion >= 5) {
             throw new InvalidArgumentException(
-                sprintf("The publication [%s] is not yet supported by this client.", $this->fhirVersion)
+                sprintf("The publication [%s] is not yet supported by this client.", (float)$this->fhirVersion)
+            );
+        }
+
+        // publication.major.minor.revision
+        // https://www.hl7.org/fhir/versions.html#versions
+        if ((float)$this->fhirVersion >= 4.1) {
+            throw new InvalidArgumentException(
+                sprintf("The major version [%s] may contain breaking changes.", (float)$this->fhirVersion)
             );
         }
 

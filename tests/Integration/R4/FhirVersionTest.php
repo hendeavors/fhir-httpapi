@@ -217,6 +217,27 @@ class FhirVersionTest extends TestCase
     /**
      * @test
      */
+    public function breaking()
+    {
+        $client = new Client();
+
+        $psr18Client = new GuzzlePsr18Client($client);
+
+        $this->expectException(\InvalidArgumentException::class);
+
+        $response = ClinicalFacade::requestGroup(
+            $psr18Client,
+            new Request('GET', 'http://fhirserver/requestgroup', [
+                'Accept' => 'application/json',
+                'Authorization' => 'Bearer token'
+            ]),
+            '4.1'
+        );
+    }
+
+    /**
+     * @test
+     */
     public function unsupported()
     {
         $client = new Client();
