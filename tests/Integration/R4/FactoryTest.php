@@ -24,20 +24,8 @@ class FactoryTest extends TestCase
             // Clinical Summary responses
             new Response(200, ['X-Foo' => 'Bar'], 'Read Condition'),
             new Response(200, ['X-Foo' => 'Bar'], 'Create Condition'),
-            new Response(200, ['X-Foo' => 'Bar'], 'Condition'),
-            new Response(200, ['X-Foo' => 'Bar'], 'Procedure'),
-            new Response(200, ['X-Foo' => 'Bar'], 'Family Member History'),
-            new Response(200, ['X-Foo' => 'Bar'], 'Clinical Impression'),
-            new Response(200, ['X-Foo' => 'Bar'], 'Detected Issue'),
-            // Care Provision responses
-            new Response(200, ['X-Foo' => 'Bar'], 'Care Plan'),
-            new Response(200, ['X-Foo' => 'Bar'], 'Care Team'),
-            new Response(200, ['X-Foo' => 'Bar'], 'Goal'),
-            new Response(200, ['X-Foo' => 'Bar'], 'Service Request'),
-            new Response(200, ['X-Foo' => 'Bar'], 'Nutrition Order'),
-            new Response(200, ['X-Foo' => 'Bar'], 'Vision Prescription'),
-            new Response(200, ['X-Foo' => 'Bar'], 'Risk Assessment'),
-            new Response(200, ['X-Foo' => 'Bar'], 'Request Group'),
+            new Response(200, ['X-Foo' => 'Bar'], 'Create Condition from array'),
+            new Response(200, ['X-Foo' => 'Bar'], 'Create Condition from JsonSerializable'),
         ]);
 
         $handlerStack = HandlerStack::create($mock);
@@ -55,5 +43,21 @@ class FactoryTest extends TestCase
         $response = Factory::createCondition("/createcondition", "", "Bearer token2");
 
         $this->assertSame((string)$response->getBody(), 'Create Condition');
+
+        $response = Factory::createCondition("/createcondition", [], "Bearer token2");
+
+        $this->assertSame((string)$response->getBody(), 'Create Condition from array');
+
+        $serializable = new class() implements \JsonSerializable
+        {
+            public function jsonSerialize()
+            {
+                return ['data' => 'foo'];
+            }
+        };
+
+        $response = Factory::createCondition("/createcondition", $serializable, "Bearer token2");
+
+        $this->assertSame((string)$response->getBody(), 'Create Condition from JsonSerializable');
     }
 }

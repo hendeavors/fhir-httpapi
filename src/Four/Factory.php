@@ -93,7 +93,7 @@ final class Factory implements RequestFactoryInterface
     /**
      * Create condition resource
      * @param  string $uri The uri for creating a condition
-     * @param  string|resource|StreamInterface $body Request body
+     * @param  mixed $body Request body
      * @return ResponseInterface The response in json fhir format
      */
     public static function createCondition($uri, $body, string $authorization): ResponseInterface
@@ -102,7 +102,9 @@ final class Factory implements RequestFactoryInterface
             $body = \json_encode($body);
         }
 
-        // TODO implements \JsonSerializable
+        if ($body instanceof \JsonSerializable) {
+            $body = \json_encode($body);
+        }
 
         $request = static::getInstance()
         ->postRequest(Write::make($uri))
