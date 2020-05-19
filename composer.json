@@ -23,7 +23,10 @@
     "autoload": {
         "psr-4": {
             "Endeavors\\Fhir\\Http\\Api\\": "src/"
-        }
+        },
+        "exclude-from-classmap": [
+            "/tests/"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
