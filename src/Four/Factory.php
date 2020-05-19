@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Endeavors\Fhir\Http\Api\Four;
 
+use LogicException;
 use Nyholm\Psr7\Stream;
 use Nyholm\Psr7\Request;
 use Endeavors\Fhir\Http\Api\Uri\Read;
